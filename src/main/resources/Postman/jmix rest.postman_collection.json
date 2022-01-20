@@ -1,0 +1,692 @@
+{
+	"info": {
+		"_postman_id": "8dbd2e69-d5ef-42b8-afd0-493bf14dbbd3",
+		"name": "jmix rest",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "authorization",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);\r",
+							"postman.setEnvironmentVariable(\"token\", jsonData.access_token);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic Y2xpZW50OnNlY3JldA=="
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "grant_type",
+							"value": "password",
+							"type": "text"
+						},
+						{
+							"key": "login",
+							"value": "new",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "1",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/oauth/token?grant_type=password&username=admin&password=admin",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"oauth",
+						"token"
+					],
+					"query": [
+						{
+							"key": "grant_type",
+							"value": "password"
+						},
+						{
+							"key": "username",
+							"value": "admin"
+						},
+						{
+							"key": "password",
+							"value": "admin"
+						}
+					]
+				},
+				"description": "jmix token"
+			},
+			"response": []
+		},
+		{
+			"name": "getListOfUsers",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer r+SuQ09HpOZLki8AFaq3Gll/iSs=",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/rest/entities/sales_User",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"rest",
+						"entities",
+						"sales_User"
+					]
+				},
+				"description": "jmix /entities/User"
+			},
+			"response": []
+		},
+		{
+			"name": "getOrders",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/rest/entities/sales_Order?fetchPlans=order-edit&offset=5&sort=date",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"rest",
+						"entities",
+						"sales_Order"
+					],
+					"query": [
+						{
+							"key": "fetchPlans",
+							"value": "order-edit"
+						},
+						{
+							"key": "offset",
+							"value": "5"
+						},
+						{
+							"key": "sort",
+							"value": "date"
+						}
+					]
+				},
+				"description": "jmix"
+			},
+			"response": []
+		},
+		{
+			"name": "getLimitedOrders",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/rest/entities/sales_Order?fetchPlans=order-edit&limit=10&offset=1&sort=date",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"rest",
+						"entities",
+						"sales_Order"
+					],
+					"query": [
+						{
+							"key": "fetchPlans",
+							"value": "order-edit"
+						},
+						{
+							"key": "limit",
+							"value": "10"
+						},
+						{
+							"key": "offset",
+							"value": "1"
+						},
+						{
+							"key": "sort",
+							"value": "date"
+						}
+					]
+				},
+				"description": "jmix"
+			},
+			"response": []
+		},
+		{
+			"name": "listOfOrdersWitIds",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer K1ug3yr/1cRI69uihWcc8WUMHyU="
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"ids\": [\r\n    \"87fe4332-87fe-4332-870c-5875870c5875\", \"a64649a9-a646-49a9-8f15-cf798f15cf79\"\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "text"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/rest/queries/sales_Order/ordersByIds?returnCount=true",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"rest",
+						"queries",
+						"sales_Order",
+						"ordersByIds"
+					],
+					"query": [
+						{
+							"key": "returnCount",
+							"value": "true"
+						}
+					]
+				},
+				"description": "jmix"
+			},
+			"response": []
+		},
+		{
+			"name": "getOrdersByCustomerName",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer A84FsDiccgapExbsm3PI0hfACOA="
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"customerName\": \"Shelby Robinson\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/rest/queries/sales_Order/ordersByCustomerName",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"rest",
+						"queries",
+						"sales_Order",
+						"ordersByCustomerName"
+					]
+				},
+				"description": "jmix"
+			},
+			"response": []
+		},
+		{
+			"name": "getOrdersByIds",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer A84FsDiccgapExbsm3PI0hfACOA="
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"ids\": [\r\n    \"70734fa9-7073-4fa9-5f9a-87a85f9a87a8\",\r\n    \"6fa8452e-6fa8-452e-89cd-936e89cd936e\"\r\n  ]\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/rest/queries/sales_Order/ordersByIds",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"rest",
+						"queries",
+						"sales_Order",
+						"ordersByIds"
+					]
+				},
+				"description": "jmix"
+			},
+			"response": []
+		},
+		{
+			"name": "getOrdersByDate",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer 8pzlzBj1DTMhvPNqATXIhjWPSFk=",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/rest/queries/sales_Order/ordersByDate?date=2017-12-14",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"rest",
+						"queries",
+						"sales_Order",
+						"ordersByDate"
+					],
+					"query": [
+						{
+							"key": "date",
+							"value": "2017-12-14"
+						}
+					]
+				},
+				"description": "jmix"
+			},
+			"response": []
+		},
+		{
+			"name": "validateOrder",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer 1sr0+5ZVtiwrLu7RMnMo/BaeVpM=",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"order\" : {\r\n    \"number\": \"001\",\r\n    \"date\" : \"2016-01-01\"\r\n  },\r\n  \"validationDate\": \"2016-10-01\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/rest/services/sales_OrderServiceBean/validateOrder",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"rest",
+						"services",
+						"sales_OrderServiceBean",
+						"validateOrder"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "calculatePrice",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer /7lmQZZ4leyP4AgiSbzGAnfSisY=",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/rest/services/sales_OrderServiceBean/calculatePrice",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"rest",
+						"services",
+						"sales_OrderServiceBean",
+						"calculatePrice"
+					]
+				},
+				"description": "OrderService returnes price value"
+			},
+			"response": []
+		},
+		{
+			"name": "createNewOrder",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);\r",
+							"postman.setEnvironmentVariable(\"orderId\", jsonData.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer 3ee6c4c0-12e0-40e4-84e3-2189314d23ff",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \r\n  \"orderNumber\": \"22\",\r\n  \"date\": \"2020-11-11\",\r\n  \"lines\": [\r\n    {\r\n      \"_entityName\": \"sales_OrderLine\",\r\n      \"quantity\" : 10,\r\n      \"product\" :  {\r\n        \"id\" : \"401f2128-8359-1cf3-6b8f-83ff2ee000f0\"\r\n      }\r\n    }\r\n  ],\r\n  \"customer\": {\r\n    \"id\": \"7efdaa07-0844-749c-6b43-a1b3a8b2b803\"\r\n  }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/rest/entities/sales_Order",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"rest",
+						"entities",
+						"sales_Order"
+					]
+				},
+				"description": "create new order with correct customer_id"
+			},
+			"response": []
+		},
+		{
+			"name": "updateOrder",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer 94c6bebd-a95a-4c4d-b05d-c400170f4a63"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"date\": \"2021-10-11\",\r\n  \"customer\" : {\r\n    \"id\" : \"a09983f6-540c-5d49-a4cf-d2343b6ee44b\"\r\n  }\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/rest/entities/sales_Order/{{orderId}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"rest",
+						"entities",
+						"sales_Order",
+						"{{orderId}}"
+					]
+				},
+				"description": "update order (chande date, customer)"
+			},
+			"response": []
+		},
+		{
+			"name": "deleteOrder",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer 94c6bebd-a95a-4c4d-b05d-c400170f4a63"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"date\": \"2007-10-01\",\r\n  \"customer\" : {\r\n    \"id\" : \"d8eebe12-1aa5-c187-b2d3-911a3aff9268\"\r\n  }\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/rest/entities/sales_Order/{{orderId}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"rest",
+						"entities",
+						"sales_Order",
+						"{{orderId}}"
+					]
+				},
+				"description": "update order (chande date, customer)"
+			},
+			"response": []
+		},
+		{
+			"name": "getOrdersWithFilter",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/rest/entities/sales_Order/search?filter=%7B%22conditions%22%3A%5B%7B%22property%22%3A%22customer.name%22%2C%22operator%22%3A%22%3C%3E%22%2C%22value%22%3A%22Shelby%20Robinson%22%7D%5D%7D",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"rest",
+						"entities",
+						"sales_Order",
+						"search"
+					],
+					"query": [
+						{
+							"key": "filter",
+							"value": "%7B%22conditions%22%3A%5B%7B%22property%22%3A%22customer.name%22%2C%22operator%22%3A%22%3C%3E%22%2C%22value%22%3A%22Shelby%20Robinson%22%7D%5D%7D"
+						}
+					]
+				},
+				"description": "jmix"
+			},
+			"response": []
+		}
+	]
+}
